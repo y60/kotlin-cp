@@ -4,18 +4,16 @@
  */
 class UnionFind(size:Int){
     private val parents: Array<Int?> =  arrayOfNulls(size)
-    private val sizes: Array<Int> =  Array(size) { i -> 1}
+    private val sizes: Array<Int> =  Array(size) {1}
 
     /**
      * Returns the root node of `node`.
      */
     fun root(node: Int):Int{
-        return if (parents[node] == null){
-            node
-        }else{
-            parents[node]=root(parents[node]!!)
-            parents[node]!!
-        }
+        return parents[node]?.let{
+            parents[node]=root(it)
+            parents[node]
+        }?: node
     }
 
     /**
